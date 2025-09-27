@@ -2,9 +2,35 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useEffect } from 'react'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  async function pokemonApiFetch() {
+    let response;
+    
+    try {
+        const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
+        response = await res.json();
+    } catch (e) {
+        console.log("Error:", e);
+    }
+    
+    return response;
+}
+
+// Correct way to use it
+
+useEffect(() => {
+  async function data () {
+   const dd =  await pokemonApiFetch()
+   console.log(dd)
+  }
+// const data = await pokemonApiFetch()
+data()
+},[])
+// pokemonApiFetch().then(data => console.log(data));
 
   return (
     <>
